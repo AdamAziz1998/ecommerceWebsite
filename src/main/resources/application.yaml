@@ -1,1 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce_db
+    username: adam
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # You can use "create" to recreate the database on every start, but be cautious in a production environment
+    show-sql: true # Set to true to show SQL queries in the console for debugging purposes
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hikari:
+      connection-timeout: 20000 # Connection timeout in milliseconds
+      maximum-pool-size: 5 # Maximum number of connections in the pool
+
+server:
+  port: 8080 # Set your desired server port
+
 

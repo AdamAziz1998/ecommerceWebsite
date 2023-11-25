@@ -1,2 +1,4 @@
-package com.eComm.store.service;public interface CartService {
+package com.eComm.store.service;
+
+public interface CartService {
 }
