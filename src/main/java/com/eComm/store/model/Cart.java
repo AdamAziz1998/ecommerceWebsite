@@ -18,9 +18,4 @@ public class Cart {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
     private List<CartItem> cartItems;
-
-    @NotNull
-    @Positive
-    @Column(name = "count")
-    private int count;
 }
