@@ -11,5 +11,4 @@ import java.util.UUID;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, UUID> {
-    List<CartItem> findB
 }
