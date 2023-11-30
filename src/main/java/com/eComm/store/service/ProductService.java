@@ -15,7 +15,7 @@ public interface ProductService {
 
     List<Product> getProductsBySearch(String searchTerm);
 
-    void saveProduct(Product product);
+    void createProduct(Product product);
 
     void updateProduct(UUID productId, Product updateProduct);
 
