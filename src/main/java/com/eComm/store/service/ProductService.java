@@ -18,4 +18,6 @@ public interface ProductService {
     void saveProduct(Product product);
 
     void updateProduct(UUID productId, Product updateProduct);
+
+    void deleteProduct(UUID productId);
 }

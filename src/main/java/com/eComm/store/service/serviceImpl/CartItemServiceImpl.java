@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,4 +30,27 @@ public class CartItemServiceImpl implements CartItemService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void createCartItem(CartItem cartItem) {
+        cartItemRepository.save(cartItem);
+    }
+
+    @Override
+    public void updateCartItem(UUID cartId, UUID productId, CartItem updatedCartItem) {
+        Optional<CartItem> optionalCartItem = Optional.ofNullable(cartItemRepository.findByCartIDAndProductID(cartId, productId));
+        if (optionalCartItem.isPresent()) {
+            CartItem existingCartItem = optionalCartItem.get();
+            existingCartItem.setQuantity(updatedCartItem.getQuantity());
+
+            cartItemRepository.save(existingCartItem);
+        } else {
+            // Handle the case where the cart item is not found
+            // throw new YourCustomException("Cart item not found");
+        }
+    }
+
+    @Override
+    public void deleteCartItem(UUID cartId, UUID productId) {
+        cartItemRepository.deleteByCartIDAndProductID(cartId, productId);
+    }
 }
