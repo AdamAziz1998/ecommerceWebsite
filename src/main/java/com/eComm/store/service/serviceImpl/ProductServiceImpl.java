@@ -1,5 +1,6 @@
 package com.eComm.store.service.serviceImpl;
 
+import com.eComm.store.exception.ResourceNotFoundException;
 import com.eComm.store.model.Product;
 import com.eComm.store.repository.ProductRepository;
 import com.eComm.store.service.ProductService;
@@ -23,9 +24,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(UUID productId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        return optionalProduct.orElse(null);
+    public Product getProductById(UUID productId) throws ResourceNotFoundException {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found for this id :: " + productId));
     }
 
     @Override
@@ -47,21 +48,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void updateProduct(UUID productId, Product updatedProduct) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        if (optionalProduct.isPresent()) {
-            Product existingProduct = optionalProduct.get();
-            existingProduct.setName(updatedProduct.getName());
-            existingProduct.setStatus(updatedProduct.getStatus());
-            existingProduct.setPrice(updatedProduct.getPrice());
-            existingProduct.setStockQuantity(updatedProduct.getStockQuantity());
-            existingProduct.setImageUrl(updatedProduct.getImageUrl());
-            existingProduct.setDescription(updatedProduct.getDescription());
-            existingProduct.setCategory(updatedProduct.getCategory());
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found for this id :: " + productId));
 
-            productRepository.save(existingProduct);
-        } else {
-            //new ProductNotFoundException()
-        }
+        product.setName(updatedProduct.getName());
+        product.setStatus(updatedProduct.getStatus());
+        product.setPrice(updatedProduct.getPrice());
+        product.setStockQuantity(updatedProduct.getStockQuantity());
+        product.setImageUrl(updatedProduct.getImageUrl());
+        product.setDescription(updatedProduct.getDescription());
+        product.setCategory(updatedProduct.getCategory());
+
+        productRepository.save(product);
     }
 
     @Override

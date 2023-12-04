@@ -1,5 +1,6 @@
 package com.eComm.store.service;
 
+import com.eComm.store.exception.ResourceNotFoundException;
 import com.eComm.store.model.Product;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
-    Product getProductById(UUID productId);
+    Product getProductById(UUID productId) throws ResourceNotFoundException;
 
     List<Product> getProductsByCategory(String category);
 
