@@ -1,6 +1,6 @@
 package com.eComm.store.service;
 
-import com.eComm.store.exception.ResourceNotFoundException;
+import com.eComm.store.dto.ProductDTO;
 import com.eComm.store.model.Product;
 
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface ProductService {
 
-    List<Product> getAllProducts();
+    List<ProductDTO> getAllProducts();
 
-    Product getProductById(UUID productId) throws ResourceNotFoundException;
+    Product getProductById(UUID productId);
 
     List<Product> getProductsByCategory(String category);
 
@@ -18,7 +18,7 @@ public interface ProductService {
 
     void createProduct(Product product);
 
-    void updateProduct(UUID productId, Product updateProduct);
+    Product updateProduct(UUID productId, Product updateProduct);
 
     void deleteProduct(UUID productId);
 }

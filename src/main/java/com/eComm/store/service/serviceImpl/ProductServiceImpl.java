@@ -1,13 +1,12 @@
 package com.eComm.store.service.serviceImpl;
 
-import com.eComm.store.exception.ResourceNotFoundException;
+import com.eComm.store.dto.ProductDTO;
 import com.eComm.store.model.Product;
 import com.eComm.store.repository.ProductRepository;
 import com.eComm.store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class ProductServiceImpl implements ProductService {
@@ -19,14 +18,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<ProductDTO> getAllProducts() {
         return productRepository.findAll();
     }
 
     @Override
-    public Product getProductById(UUID productId) throws ResourceNotFoundException {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found for this id :: " + productId));
+    public Product getProductById(UUID productId) {
+        return productRepository.findById(productId).orElse(null);
     }
 
     @Override
@@ -47,9 +45,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(UUID productId, Product updatedProduct) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found for this id :: " + productId));
+    public Product updateProduct(UUID productId, Product updatedProduct) {
+        Product product = productRepository.findById(productId).orElse(null);
+
+        if (product == null) {
+            return null;
+        }
 
         product.setName(updatedProduct.getName());
         product.setStatus(updatedProduct.getStatus());
@@ -60,6 +61,8 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(updatedProduct.getCategory());
 
         productRepository.save(product);
+
+        return product;
     }
 
     @Override
