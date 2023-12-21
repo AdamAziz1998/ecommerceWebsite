@@ -1,51 +1,71 @@
 package com.eComm.store.service.serviceImpl;
 
+import com.eComm.store.convert.ProductConverter;
 import com.eComm.store.dto.ProductDTO;
 import com.eComm.store.model.Product;
 import com.eComm.store.repository.ProductRepository;
 import com.eComm.store.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+@Service
+@Slf4j
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final ProductConverter productConverter;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductConverter productConverter) {
         this.productRepository = productRepository;
+        this.productConverter = productConverter;
     }
 
     @Override
     public List<ProductDTO> getAllProducts() {
-        return productRepository.findAll();
+        log.info("getAllProducts started");
+        List<Product> products = productRepository.findAll();
+        log.info("getAllProducts len: " + products.size());
+
+        return products.stream().map(productConverter::convertProductToProductDTO).collect(Collectors.toList());
     }
 
     @Override
-    public Product getProductById(UUID productId) {
-        return productRepository.findById(productId).orElse(null);
+    public ProductDTO getProductById(UUID productId) {
+        log.info("getProductById started");
+        Product product = productRepository.findById(productId).orElse(null);
+
+        if (product != null) {
+            return productConverter.convertProductToProductDTO(product);
+        }
+
+        return null;
     }
 
     @Override
-    public List<Product> getProductsByCategory(String category) {
+    public List<ProductDTO> getProductsByCategory(String category) {
         return productRepository.findByCategory(category);
     }
 
     @Override
-    public List<Product> getProductsBySearch(String searchTerm) {
+    public List<ProductDTO> getProductsBySearch(String searchTerm) {
         return productRepository.findBySearchTerm(searchTerm);
     }
 
     //code below will be useful for the back office for this application
 
     @Override
-    public void createProduct(Product product) {
+    public void createProduct(ProductDTO product) {
         productRepository.save(product);
     }
 
     @Override
-    public Product updateProduct(UUID productId, Product updatedProduct) {
+    public ProductDTO updateProduct(UUID productId, ProductDTO updatedProduct) {
         Product product = productRepository.findById(productId).orElse(null);
 
         if (product == null) {

@@ -51,11 +51,9 @@ public class ProductController {
 
     }
 
-    @GetMapping("products/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable(value = "id") UUID productId) {
-        return productService.getProductById(productId);
-    }
 
+
+//    ProductDTO getProductById(UUID productId);
 //
 //    List<Product> getProductsByCategory(String category);
 //

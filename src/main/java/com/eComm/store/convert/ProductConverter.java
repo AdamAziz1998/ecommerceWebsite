@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductConverter {
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public ProductConverter (ModelMapper modelMapper) {
         this.modelMapper = modelMapper;

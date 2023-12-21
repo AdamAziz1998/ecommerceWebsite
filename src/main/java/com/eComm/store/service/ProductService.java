@@ -10,15 +10,15 @@ public interface ProductService {
 
     List<ProductDTO> getAllProducts();
 
-    Product getProductById(UUID productId);
+    ProductDTO getProductById(UUID productId);
 
-    List<Product> getProductsByCategory(String category);
+    List<ProductDTO> getProductsByCategory(String category);
 
-    List<Product> getProductsBySearch(String searchTerm);
+    List<ProductDTO> getProductsBySearch(String searchTerm);
 
-    void createProduct(Product product);
+    void createProduct(ProductDTO product);
 
-    Product updateProduct(UUID productId, Product updateProduct);
+    ProductDTO updateProduct(UUID productId, ProductDTO updateProduct);
 
     void deleteProduct(UUID productId);
 }
