@@ -49,12 +49,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getProductsByCategory(String category) {
-        return productRepository.findByCategory(category);
+        log.info("getProductsByCategory started");
+        List<Product> products = productRepository.findByCategory(category);
+        log.info("getProductsByCategory len: " + products.size());
+
+        return products.stream().map(productConverter::convertProductToProductDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductDTO> getProductsBySearch(String searchTerm) {
-        return productRepository.findBySearchTerm(searchTerm);
+        log.info("getProductsBySearch started");
+        List<Product> products = productRepository.findBySearchTerm(searchTerm);
+        log.info("getProductsBySearch len: " + products.size());
+
+        return products.stream().map(productConverter::convertProductToProductDTO).collect(Collectors.toList());
     }
 
     //code below will be useful for the back office for this application
