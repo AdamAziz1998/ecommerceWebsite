@@ -16,9 +16,9 @@ public interface ProductService {
 
     List<ProductDTO> getProductsBySearch(String searchTerm);
 
-    void createProduct(ProductDTO product);
+    ProductDTO createProduct(ProductDTO product);
 
     ProductDTO updateProduct(UUID productId, ProductDTO updateProduct);
 
-    void deleteProduct(UUID productId);
+    ProductDTO deleteProduct(UUID productId);
 }

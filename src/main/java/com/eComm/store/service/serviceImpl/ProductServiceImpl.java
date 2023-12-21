@@ -68,33 +68,64 @@ public class ProductServiceImpl implements ProductService {
     //code below will be useful for the back office for this application
 
     @Override
-    public void createProduct(ProductDTO product) {
-        productRepository.save(product);
+    public ProductDTO createProduct(ProductDTO productDTO) {
+
+        log.info("createProduct started");
+
+        Product newProduct = new Product();
+
+        newProduct.setName(productDTO.getName());
+        newProduct.setStatus(productDTO.getStatus());
+        newProduct.setPrice(productDTO.getPrice());
+        newProduct.setStockQuantity(productDTO.getStockQuantity());
+        newProduct.setImageUrl(productDTO.getImageUrl());
+        newProduct.setDescription(productDTO.getDescription());
+        newProduct.setCategory(productDTO.getCategory());
+
+        log.info("createProduct before save id: " + newProduct.getId());
+
+        newProduct = productRepository.save(newProduct);
+
+        log.info("createProduct after save id: " + newProduct.getId());
+
+        return productConverter.convertProductToProductDTO(newProduct);
     }
 
     @Override
-    public ProductDTO updateProduct(UUID productId, ProductDTO updatedProduct) {
+    public ProductDTO updateProduct(UUID productId, ProductDTO productDTO) {
+
+        log.info("updateProduct started");
+
+        Product updatedProduct = productRepository.findById(productId).orElse(null);
+
+        if (updatedProduct == null) {
+            return null;
+        }
+
+        updatedProduct.setName(productDTO.getName());
+        updatedProduct.setStatus(productDTO.getStatus());
+        updatedProduct.setPrice(productDTO.getPrice());
+        updatedProduct.setStockQuantity(productDTO.getStockQuantity());
+        updatedProduct.setImageUrl(productDTO.getImageUrl());
+        updatedProduct.setDescription(productDTO.getDescription());
+        updatedProduct.setCategory(productDTO.getCategory());
+
+        productRepository.save(updatedProduct);
+
+        return productConverter.convertProductToProductDTO(updatedProduct);
+    }
+
+    @Override
+    public ProductDTO deleteProduct(UUID productId) {
+
         Product product = productRepository.findById(productId).orElse(null);
 
         if (product == null) {
             return null;
         }
 
-        product.setName(updatedProduct.getName());
-        product.setStatus(updatedProduct.getStatus());
-        product.setPrice(updatedProduct.getPrice());
-        product.setStockQuantity(updatedProduct.getStockQuantity());
-        product.setImageUrl(updatedProduct.getImageUrl());
-        product.setDescription(updatedProduct.getDescription());
-        product.setCategory(updatedProduct.getCategory());
-
-        productRepository.save(product);
-
-        return product;
-    }
-
-    @Override
-    public void deleteProduct(UUID productId) {
         productRepository.deleteById(productId);
+
+        return productConverter.convertProductToProductDTO(product);
     }
 }
