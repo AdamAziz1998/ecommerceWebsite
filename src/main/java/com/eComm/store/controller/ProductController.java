@@ -42,16 +42,36 @@ public class ProductController {
                     content = @Content) })
     public ResponseEntity<?> getAllProducts() {
 
-        log.info("getAllProducts started");
+        log.info("getProducts started");
 
         List<ProductDTO> products = productService.getAllProducts();
 
         return ResponseEntity.status(HttpStatus.OK).body(products);
-
-
     }
 
+    @GetMapping("/products/{id}")
+    @Operation(summary = "Retrieve Product by Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the Product matching this Id",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProductDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Product Not Found",
+                    content = @Content),
+            @ApiResponse(responseCode = "403", description = "Authorization Failed",
+                    content = @Content) })
+    public ResponseEntity<?> getProductById(UUID productId) {
 
+        log.info("getUser started");
+
+        ProductDTO productDTO = productService.getProductById(productId);
+
+        if (productDTO != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(productDTO);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{}");
+        }
+    }
 
 //    ProductDTO getProductById(UUID productId);
 //
