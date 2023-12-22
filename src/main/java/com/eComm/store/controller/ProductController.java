@@ -4,6 +4,7 @@ import com.eComm.store.dto.ProductDTO;
 import com.eComm.store.model.Product;
 import com.eComm.store.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,15 +13,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+
+//TODO: Add some security to the project, and some permission for more admin related roles, when the user service is created
 
 @RestController
 @RequestMapping("/api/v1")
@@ -59,11 +60,11 @@ public class ProductController {
                     content = @Content),
             @ApiResponse(responseCode = "403", description = "Authorization Failed",
                     content = @Content) })
-    public ResponseEntity<?> getProductById(UUID productId) {
+    public ResponseEntity<?> getProductById(@Parameter(description = "id of Product to be found") @PathVariable UUID id) {
 
         log.info("getUser started");
 
-        ProductDTO productDTO = productService.getProductById(productId);
+        ProductDTO productDTO = productService.getProductById(id);
 
         if (productDTO != null) {
             return ResponseEntity.status(HttpStatus.OK).body(productDTO);
@@ -73,8 +74,18 @@ public class ProductController {
         }
     }
 
-//    ProductDTO getProductById(UUID productId);
-//
+    @GetMapping("/productsByCategory/{category}")
+    @Operation(summary = "Retrieve Products by Category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found zero or more Products",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class))) }),
+            @ApiResponse(responseCode = "403", description = "Authorization Failed",
+                    content = @Content) })
+    public ResponseEntity<?> getProductsByCategory(@Parameter(description = "Category of the products to be found") @PathVariable String category) {
+
+    }
+
 //    List<Product> getProductsByCategory(String category);
 //
 //    List<Product> getProductsBySearch(String searchTerm);
