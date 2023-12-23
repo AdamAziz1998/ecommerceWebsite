@@ -62,7 +62,7 @@ public class ProductController {
                     content = @Content) })
     public ResponseEntity<?> getProductById(@Parameter(description = "id of Product to be found") @PathVariable UUID id) {
 
-        log.info("getUser started");
+        log.info("getProductById started");
 
         ProductDTO productDTO = productService.getProductById(id);
 
@@ -82,17 +82,36 @@ public class ProductController {
                             array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class))) }),
             @ApiResponse(responseCode = "403", description = "Authorization Failed",
                     content = @Content) })
-    public ResponseEntity<?> getProductsByCategory(@Parameter(description = "Category of the products to be found") @PathVariable String category) {
+    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@Parameter(description = "Category of the products to be found") @PathVariable String category) {
 
+        log.info("getProductsByCategory started");
+
+        List<ProductDTO> productDTOList = productService.getProductsByCategory(category);
+
+        return ResponseEntity.status(HttpStatus.OK).body(productDTOList);
     }
 
-//    List<Product> getProductsByCategory(String category);
-//
-//    List<Product> getProductsBySearch(String searchTerm);
-//
+    @GetMapping("/productsBySearch/{searchTerm}")
+    @Operation(summary = "Retrieve Products by Category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found zero or more Products",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class))) }),
+            @ApiResponse(responseCode = "403", description = "Authorization Failed",
+                    content = @Content) })
+    public ResponseEntity<List<ProductDTO>> getProductsBySearch(@Parameter(description = "Products found by search term") @PathVariable String searchTerm) {
+
+        log.info("getProductsBySearch started");
+
+        List<ProductDTO> productDTOList = productService.getProductsBySearch(searchTerm);
+
+        return ResponseEntity.status(HttpStatus.OK).body(productDTOList);
+    }
+
+
+
+
 //    void createProduct(Product product);
-//
 //    void updateProduct(UUID productId, Product updateProduct);
-//
 //    void deleteProduct(UUID productId);
 }
