@@ -157,6 +157,29 @@ public class ProductController {
         }
     }
 
+    @DeleteMapping("/products/{id}")
+    @Operation(summary = "Delete Product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully Deleted Product",
+                    content = { @Content() }),
+            @ApiResponse(responseCode = "400", description = "Failed to Delete Product",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Product Id does not exist",
+                    content = @Content),
+            @ApiResponse(responseCode = "403", description = "Authorization Failed",
+                    content = @Content) })
+    public ResponseEntity<?> deleteProduct(@Parameter(description = "Product Id to be deleted") @PathVariable UUID id) {
+        // Delete the id
 
-//    void deleteProduct(UUID productId);
+        log.info("deleteProduct Started");
+
+        ProductDTO productDTO = productService.deleteProduct(id);
+
+        if (productDTO!= null) {
+            return ResponseEntity.status(HttpStatus.OK).body("{}");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{}");
+        }
+    }
 }
