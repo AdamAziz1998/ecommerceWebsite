@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -108,10 +109,54 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(productDTOList);
     }
 
+    @PostMapping("/products")
+    @Operation(summary = "Create New Product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successfully Created new Product",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProductDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Failed to Create new Product",
+                    content = @Content),
+            @ApiResponse(responseCode = "403", description = "Authorization Failed",
+                    content = @Content) })
+    public ResponseEntity<?> createProduct(@Parameter(description = "New Product Body Content to be created") @Valid @RequestBody ProductDTO newProductDTO) {
+
+        log.info("createProduct newProductDTO: " + newProductDTO);
+
+        ProductDTO productDTO = productService.createProduct(newProductDTO);
+
+        log.info("createProduct Completed");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
+    }
+
+    @PutMapping("/products/{id}")
+    @Operation(summary = "Update Product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully Updated Product",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProductDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Failed to Update Product",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Product Id does not exist",
+                    content = @Content),
+            @ApiResponse(responseCode = "403", description = "Authorization Failed",
+                    content = @Content) })
+    public ResponseEntity<?> updateProduct(
+            @Parameter(description = "Product Id to be updated") @PathVariable UUID id,
+            @Parameter(description = "Product Elements/Body Content to be updated") @Valid @RequestBody ProductDTO updatedProductDTO) {
+
+        log.info("updateProduct started");
+
+        ProductDTO productDTO = productService.updateProduct(id, updatedProductDTO);
+
+        if (productDTO != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(productDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{}");
+        }
+    }
 
 
-
-//    void createProduct(Product product);
-//    void updateProduct(UUID productId, Product updateProduct);
 //    void deleteProduct(UUID productId);
 }
