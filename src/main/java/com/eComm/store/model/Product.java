@@ -52,5 +52,5 @@ public class Product {
 
     @NotNull
     @Column(name = "category")
-    private Category category;
+    private String category;
 }
