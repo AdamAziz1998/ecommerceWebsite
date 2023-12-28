@@ -30,7 +30,7 @@ public class Product {
     private String name;
 
     @NotNull
-    @Column(name = "status")
+    @Column(name = "status", columnDefinition = "varchar(255)")
     private Status status;
 
     @NotNull
