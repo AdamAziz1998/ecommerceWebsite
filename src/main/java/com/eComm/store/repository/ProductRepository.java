@@ -1,6 +1,7 @@
 package com.eComm.store.repository;
 
 import com.eComm.store.model.Product;
+import com.eComm.store.model.enums.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
-    List<Product> findByCategory(String category);
+    List<Product> findByCategory(Category category);
 
     @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     List<Product> findBySearchTerm(@Param("searchTerm") String searchTerm);

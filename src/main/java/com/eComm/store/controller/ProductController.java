@@ -2,6 +2,7 @@ package com.eComm.store.controller;
 
 import com.eComm.store.dto.ProductDTO;
 import com.eComm.store.model.Product;
+import com.eComm.store.model.enums.Category;
 import com.eComm.store.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -83,7 +84,7 @@ public class ProductController {
                             array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class))) }),
             @ApiResponse(responseCode = "403", description = "Authorization Failed",
                     content = @Content) })
-    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@Parameter(description = "Category of the products to be found") @PathVariable String category) {
+    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@Parameter(description = "Category of the products to be found") @PathVariable Category category) {
 
         log.info("getProductsByCategory started");
 

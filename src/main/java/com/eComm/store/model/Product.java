@@ -17,6 +17,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "Product")
 public class Product {
 
     @Id
@@ -51,6 +52,6 @@ public class Product {
     private String description;
 
     @NotNull
-    @Column(name = "category")
+    @Column(name = "category", columnDefinition = "varchar(255)")
     private Category category;
 }

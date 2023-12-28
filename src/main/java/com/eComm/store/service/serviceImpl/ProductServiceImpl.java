@@ -3,6 +3,7 @@ package com.eComm.store.service.serviceImpl;
 import com.eComm.store.convert.ProductConverter;
 import com.eComm.store.dto.ProductDTO;
 import com.eComm.store.model.Product;
+import com.eComm.store.model.enums.Category;
 import com.eComm.store.repository.ProductRepository;
 import com.eComm.store.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getProductsByCategory(String category) {
+    public List<ProductDTO> getProductsByCategory(Category category) {
         log.info("getProductsByCategory started");
         List<Product> products = productRepository.findByCategory(category);
         log.info("getProductsByCategory len: " + products.size());
