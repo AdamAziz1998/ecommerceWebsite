@@ -30,7 +30,7 @@ public class Product {
     private String name;
 
     @NotNull
-    @Column(name = "status", columnDefinition = "varchar(255)")
+    @Column(name = "status", columnDefinition = "integer")
     private Status status;
 
     @NotNull
@@ -52,6 +52,6 @@ public class Product {
     private String description;
 
     @NotNull
-    @Column(name = "category", columnDefinition = "varchar(255)")
+    @Column(name = "category", columnDefinition = "integer")
     private Category category;
 }

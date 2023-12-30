@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecommerce_db
+    url: jdbc:postgresql://localhost:5432/products
     username: adam
     password: password
     driver-class-name: org.postgresql.Driver

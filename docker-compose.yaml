@@ -2,11 +2,11 @@ version: "3.8"
 services:
   postgres_db:
     image: "postgres:11-alpine"
-    container_name: EcommercePostgres
+    container_name: PostgresProducts
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=ecommerce_db
+      - POSTGRES_DB=products
       - POSTGRES_USER=adam
       - POSTGRES_PASSWORD=password
     restart: always
