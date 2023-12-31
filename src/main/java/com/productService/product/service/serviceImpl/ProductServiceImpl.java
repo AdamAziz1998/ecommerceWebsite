@@ -1,11 +1,11 @@
-package com.eComm.store.service.serviceImpl;
+package com.productService.product.service.serviceImpl;
 
-import com.eComm.store.convert.ProductConverter;
-import com.eComm.store.dto.ProductDTO;
-import com.eComm.store.model.Product;
-import com.eComm.store.model.enums.Category;
-import com.eComm.store.repository.ProductRepository;
-import com.eComm.store.service.ProductService;
+import com.productService.product.convert.ProductConverter;
+import com.productService.product.dto.ProductDTO;
+import com.productService.product.model.Product;
+import com.productService.product.model.enums.Category;
+import com.productService.product.repository.ProductRepository;
+import com.productService.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

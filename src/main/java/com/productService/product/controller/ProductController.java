@@ -1,9 +1,8 @@
-package com.eComm.store.controller;
+package com.productService.product.controller;
 
-import com.eComm.store.dto.ProductDTO;
-import com.eComm.store.model.Product;
-import com.eComm.store.model.enums.Category;
-import com.eComm.store.service.ProductService;
+import com.productService.product.dto.ProductDTO;
+import com.productService.product.model.enums.Category;
+import com.productService.product.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -13,10 +12,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

@@ -1,7 +1,7 @@
-package com.eComm.store.model;
+package com.productService.product.model;
 
-import com.eComm.store.model.enums.Category;
-import com.eComm.store.model.enums.Status;
+import com.productService.product.model.enums.Category;
+import com.productService.product.model.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

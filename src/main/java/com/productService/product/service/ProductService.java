@@ -1,8 +1,7 @@
-package com.eComm.store.service;
+package com.productService.product.service;
 
-import com.eComm.store.dto.ProductDTO;
-import com.eComm.store.model.Product;
-import com.eComm.store.model.enums.Category;
+import com.productService.product.dto.ProductDTO;
+import com.productService.product.model.enums.Category;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,7 +1,7 @@
-package com.eComm.store.repository;
+package com.productService.product.repository;
 
-import com.eComm.store.model.Product;
-import com.eComm.store.model.enums.Category;
+import com.productService.product.model.Product;
+import com.productService.product.model.enums.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

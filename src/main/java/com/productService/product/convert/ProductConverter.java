@@ -1,7 +1,7 @@
-package com.eComm.store.convert;
+package com.productService.product.convert;
 
-import com.eComm.store.dto.ProductDTO;
-import com.eComm.store.model.Product;
+import com.productService.product.dto.ProductDTO;
+import com.productService.product.model.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

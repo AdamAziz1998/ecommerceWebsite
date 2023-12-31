@@ -1,4 +1,4 @@
-package com.eComm.store.config;
+package com.productService.product.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @OpenAPIDefinition(info =
 @Info(
-        title = "Ecommerce website",
+        title = "Product Service",
         version = "0.0",
         description = "Documentation for the Ecommerce website application",
         license = @License(name = "Apache 2.0", url = "http://foo.bar"),

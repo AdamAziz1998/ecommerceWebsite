@@ -1,7 +1,7 @@
-package com.eComm.store.dto;
+package com.productService.product.dto;
 
-import com.eComm.store.model.enums.Category;
-import com.eComm.store.model.enums.Status;
+import com.productService.product.model.enums.Category;
+import com.productService.product.model.enums.Status;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
