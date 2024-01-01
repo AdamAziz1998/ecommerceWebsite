@@ -17,6 +17,7 @@ public class ProductDTO {
     private UUID id;
 
     @Valid
+
     @NotNull(message = "name is mandatory")
     @NotBlank(message = "name is mandatory")
     private String name;

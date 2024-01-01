@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Info(
         title = "Product Service",
         version = "0.0",
-        description = "Documentation for the Ecommerce website application",
+        description = "Documentation for the products of the online store application",
         license = @License(name = "Apache 2.0", url = "http://foo.bar"),
         contact = @Contact(name = "Adam O'Neill", email = "adamaoneill@gmail.com")
 )
